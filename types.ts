@@ -33,7 +33,7 @@ export interface IncidentReport {
   
   // Triage
   triage: TriageLevel;
-  triageClinica: string;
+  triageClinica: string[]; // Actualizado a Array para selección múltiple
   otroTriageClinicaInput: string;
   relato: string;
   
@@ -55,6 +55,10 @@ export interface IncidentReport {
   otroTiempoUlterior: string;
   observacionSeguimiento: string;
   fechaSeguimiento: string;
+  
+  // Metadatos para historial
+  id?: string;
+  resumenTecnico?: string;
 }
 
 export const initialReport: IncidentReport = {
@@ -76,7 +80,7 @@ export const initialReport: IncidentReport = {
   jefeGuardia: '',
   agresor: '',
   triage: '',
-  triageClinica: '',
+  triageClinica: [],
   otroTriageClinicaInput: '',
   relato: '',
   duracion: '',

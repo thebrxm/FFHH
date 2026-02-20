@@ -50,8 +50,18 @@ export const generateProfessionalSummary = async (report: IncidentReport) => {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `Genera un resumen ejecutivo profesional basado en este reporte de incidente de factores humanos. 
-      Usa un tono formal, médico/psicológico.
-      Datos del reporte: ${JSON.stringify(report)}`,
+      
+      INSTRUCCIÓN OBLIGATORIA: Inicia el resumen con el título "FACTORES HUMANOS - SAME Buenos Aires" centrado o destacado.
+      
+      Es FUNDAMENTAL que integres contextualmente la información de la sección DATOS:
+      - Ámbito de actuación: ${report.poblacion === 'personal' ? 'Propio Personal' : 'Población General'}
+      - Función del interviniente: ${report.funcion || 'No especificada'}
+      - Antigüedad/Años: ${report.anos || 'No especificados'}
+      - Referente: ${report.referente || 'No especificado'}
+      
+      Luego, sintetiza los datos clínicos del paciente, el escenario y el triage. 
+      Usa un tono formal, técnico, médico/psicológico orientado a derivación profesional.
+      Datos completos: ${JSON.stringify(report)}`,
     });
     // Access the .text property directly
     return response.text;
